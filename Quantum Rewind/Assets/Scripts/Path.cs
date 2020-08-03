@@ -5,13 +5,12 @@ using UnityEngine;
 public class Path
 {
     public List<Vector2> tracePoints = new List<Vector2>();
-    public bool isRetraced = false;
+    public bool isFormed = false;
     public Path()
     {
     }
-    public void RetracePath()
+    public void FormPath()
     {
-        tracePoints.Reverse();
-        isRetraced = true;
+        isFormed = true;
     }
 }

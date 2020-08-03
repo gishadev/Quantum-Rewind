@@ -4,37 +4,46 @@ using UnityEngine;
 public class AnomalyReplicate : Anomaly
 {
     public float speed;
-
-    public Queue<Vector2> currentPath = new Queue<Vector2>();
+    public Queue<Vector2> queueOfPoints = new Queue<Vector2>();
 
     void Start()
     {
-        foreach (Vector2 point in spawnpoint.path.tracePoints)
-            currentPath.Enqueue(point);
+        currentPath = spawnpoint.pathData;
+        // Setting Queue.
+        foreach (Vector2 point in currentPath.tracePoints)
+            queueOfPoints.Enqueue(point);
 
         StartCoroutine(ReplicateMovement());
     }
 
     bool pathIsDone = false;
-
     IEnumerator ReplicateMovement()
     {
-        while (currentPath.Count > 0)
+        while (queueOfPoints.Count > 0)
         {
-            Vector2 nextPoint = currentPath.Dequeue();
+            Vector2 nextPoint = queueOfPoints.Dequeue();
 
             StartCoroutine(MoveTowardsNextPoint(nextPoint));
             yield return new WaitUntil(() => pathIsDone);
             pathIsDone = false;
+            yield return null;
         }
+        // Destroying after passing all path.
+        Destroy(gameObject);
     }
 
     IEnumerator MoveTowardsNextPoint(Vector2 point)
     {
-        while (Vector2.Distance(transform.position, point) <= 0f)
+        while (!pathIsDone)
         {
-            transform.position = Vector2.MoveTowards(transform.position, point, Time.deltaTime * speed);
-            pathIsDone = true;
+            if (Vector2.Distance(transform.position, point) == 0f)
+            {
+                pathIsDone = true;
+                break;
+            }
+
+            float step = Time.deltaTime * speed;
+            transform.position = Vector2.MoveTowards((Vector2)transform.position, point, step);
             yield return null;
         }
     }
