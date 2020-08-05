@@ -13,7 +13,7 @@ public class SpawnManager : MonoBehaviour
     [Space]
     public Spawnpoint[] spawnpoints;
     public Spawnpoint OriginalSpawnpoint { get { return spawnpoints[OriginalIndex]; } }
-    public Anomaly OriginalAnomaly;
+    public Anomaly OriginalAnomaly { private set; get; }
 
     int OriginalIndex { get { return GameManager.Instance.GameIteration; } }
 
@@ -21,19 +21,6 @@ public class SpawnManager : MonoBehaviour
     {
         Instance = this;
     }
-
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.R))
-    //    {
-    //        GameManager.Instance.NextIteration();
-    //        if (GameManager.Instance.IsOutOfIterations())
-    //            return;
-
-
-    //    }
-    //}
-
 
     public void SpawnAnomalies(bool spawnNewReplicate)
     {

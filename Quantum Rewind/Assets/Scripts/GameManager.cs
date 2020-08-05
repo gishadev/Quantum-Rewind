@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public int GameIteration { private set; get; }
     public bool isPlaying = false;
 
+    public GameObject portal;
+
     UIManager uiManager;
     SpawnManager spawnManager;
     EnergyManager energyManager;
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour
         NextIteration();
         if (IsOutOfIterations())
             return;
-
+ 
         energyManager.InitEnergy();
         spawnManager.SpawnAnomalies(true);
     }
@@ -77,9 +79,7 @@ public class GameManager : MonoBehaviour
     public void NextIteration()
     {
         GameIteration++;
-        Debug.Log(GameIteration);
-        if (IsOutOfIterations())
-            Win();
+        //Debug.Log(GameIteration);
     }
     public bool IsOutOfIterations()
     {

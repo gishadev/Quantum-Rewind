@@ -52,6 +52,7 @@ public class EnergyManager : MonoBehaviour
         DespawnEnergyClusters();
         SpawnEnergyClusters();
     }
+
     #region Energy Clusters
     void SpawnEnergyClusters()
     {
@@ -66,6 +67,7 @@ public class EnergyManager : MonoBehaviour
             Destroy(c.gameObject);
     }
     #endregion
+
     void ResetLastBatteryEnergy()
     {
         NowBattery.Energy = 0;

@@ -29,7 +29,7 @@ public class Battery : MonoBehaviour
     {
         Energy++;
 
-        if (maxEnergy <= Energy)
+        if (Energy >= maxEnergy)
             OpenBatteryGate();
     }
 
