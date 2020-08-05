@@ -4,11 +4,32 @@ using UnityEngine;
 
 public class AnomalyOriginal : Anomaly
 {
-    public float speed;
+    [Header("Movement")]
+    public float maxMagnitude;
+    public float forceMultiplier;
+    public float slowMotionScale;
+    [Space]
     [SerializeField] private float maxLifeTime = 2f;
     public float LifeTime { private set; get; }
 
     public SpriteRenderer healthRenderer;
+
+    bool isRecording = false;
+    Vector2 firstMousePoint;
+    Vector2 secondMousePoint;
+    Vector2 Direction { get { return (secondMousePoint - firstMousePoint).normalized; } }
+    float Magnitude { get { return Mathf.Clamp(Vector2.Distance(firstMousePoint, secondMousePoint), 0, maxMagnitude); } }
+
+    Rigidbody2D rb;
+    LineRenderer lr;
+    Camera cam;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        lr = GetComponent<LineRenderer>();
+        cam = Camera.main;
+    }
 
     void Start()
     {
@@ -18,9 +39,39 @@ public class AnomalyOriginal : Anomaly
 
     void Update()
     {
-        // Movement.
-        Vector2 movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        transform.Translate(movementInput * speed * Time.deltaTime);
+        //// Movement.
+        //Vector2 movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        //transform.Translate(movementInput * speed * Time.deltaTime);
+
+        #region Movement
+        if (Input.GetMouseButtonDown(0))
+        {
+            firstMousePoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            Time.timeScale = slowMotionScale;
+
+            lr.enabled = true;
+            isRecording = true;
+        }
+
+        if (isRecording)
+        {
+            lr.SetPosition(0, transform.position);
+            secondMousePoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            lr.SetPosition(1, (Vector2)transform.position + (Direction * Magnitude));
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (Magnitude > rb.velocity.magnitude / 2f)
+                rb.velocity = Vector2.zero;
+            rb.AddForce(Direction * Magnitude * forceMultiplier, ForceMode2D.Impulse);
+
+            Time.timeScale = 1;
+
+            lr.enabled = false;
+            isRecording = false;
+        }
+        #endregion
 
         ClampPosition();
 

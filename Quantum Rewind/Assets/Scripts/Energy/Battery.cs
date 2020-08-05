@@ -15,6 +15,16 @@ public class Battery : MonoBehaviour
     }
     private int energy = 0;
     private int maxEnergy { get { return EnergyManager.Instance.EnergyPerBattery; } }
+    public int EnergyRequired { 
+        get 
+        { 
+            int v = maxEnergy - Energy;
+            if (v < 0)
+                return 0;
+            else
+                return v;
+        } 
+    }
 
     SpriteRenderer spriteRenderer;
     CircleCollider2D circleCollider;
@@ -29,7 +39,7 @@ public class Battery : MonoBehaviour
     {
         Energy++;
 
-        if (Energy >= maxEnergy)
+        if (EnergyRequired == 0)
             OpenBatteryGate();
     }
 
@@ -37,6 +47,9 @@ public class Battery : MonoBehaviour
     {
         isOpened = true;
         spriteRenderer.color = gateColor;
+
+        if (GameManager.Instance.IsFinalIteration)
+            GameManager.Instance.portal.Open();
     }
 
     void SetVisualEnergyValue(float value)
@@ -48,7 +61,7 @@ public class Battery : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (isOpened)
+        if (isOpened && !GameManager.Instance.IsFinalIteration)
             if (other.CompareTag("Anomaly"))
             {
                 if (other.GetComponent<Anomaly>().anomalyType == AnomalyType.Original)

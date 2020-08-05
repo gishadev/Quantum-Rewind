@@ -23,6 +23,10 @@ public class EnergyCluster : MonoBehaviour
                     SendCluster(EnergyManager.Instance.NowBattery);
                     break;
             }
+
+            // If amount of Clusters on the scene is not enough to power up current battery => Lose.
+            if (EnergyManager.Instance.GetClusters().Length < EnergyManager.Instance.NowBattery.EnergyRequired)
+                GameManager.Instance.Lose();
         }
     }
 

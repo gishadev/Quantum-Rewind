@@ -7,9 +7,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { private set; get; }
     #endregion
     public int GameIteration { private set; get; }
+    public bool IsFinalIteration { get { return GameIteration == spawnManager.spawnpoints.Length - 1; } }
     public bool isPlaying = false;
 
-    public GameObject portal;
+    public Portal portal;
 
     UIManager uiManager;
     SpawnManager spawnManager;
