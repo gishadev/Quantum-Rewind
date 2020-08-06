@@ -36,7 +36,7 @@ public class EnergyManager : MonoBehaviour
 
     void SetEnergyPoints()
     {
-        EnergyCluster[] clusters = GetClusters();
+        EnergyCluster[] clusters = FindObjectsOfType<EnergyCluster>();
 
         energyPoints = new Vector2[clusters.Length];
         for (int i = 0; i < clusters.Length; i++)
@@ -53,11 +53,6 @@ public class EnergyManager : MonoBehaviour
         SpawnEnergyClusters();
     }
 
-    public EnergyCluster[] GetClusters()
-    {
-        return FindObjectsOfType<EnergyCluster>();
-    }
-
     #region Energy Clusters
     void SpawnEnergyClusters()
     {
@@ -65,7 +60,7 @@ public class EnergyManager : MonoBehaviour
             Instantiate(energyClusterPrefab, point, Quaternion.identity, energyParent);
     }
 
-    void DespawnEnergyClusters()
+    public void DespawnEnergyClusters()
     {
         EnergyCluster[] clusters = FindObjectsOfType<EnergyCluster>();
         foreach (EnergyCluster c in clusters)

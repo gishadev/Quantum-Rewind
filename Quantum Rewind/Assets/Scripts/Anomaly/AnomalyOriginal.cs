@@ -12,14 +12,12 @@ public class AnomalyOriginal : Anomaly
     [SerializeField] private float maxLifeTime = 2f;
     public float LifeTime { private set; get; }
 
-    public SpriteRenderer healthRenderer;
-
     bool isRecording = false;
-    Vector2 firstMousePoint;
-    Vector2 secondMousePoint;
-    Vector2 Direction { get { return (secondMousePoint - firstMousePoint).normalized; } }
-    float Magnitude { get { return Mathf.Clamp(Vector2.Distance(firstMousePoint, secondMousePoint), 0, maxMagnitude); } }
+    Vector2 mousePoint;
+    Vector2 Direction { get { return (mousePoint - (Vector2)transform.position).normalized; } }
+    float Magnitude { get { return Mathf.Clamp(Vector2.Distance(transform.position, mousePoint), 0, maxMagnitude); } }
 
+    Health healthUI;
     Rigidbody2D rb;
     LineRenderer lr;
     Camera cam;
@@ -28,6 +26,7 @@ public class AnomalyOriginal : Anomaly
     {
         rb = GetComponent<Rigidbody2D>();
         lr = GetComponent<LineRenderer>();
+        healthUI = FindObjectOfType<Health>();
         cam = Camera.main;
     }
 
@@ -46,7 +45,6 @@ public class AnomalyOriginal : Anomaly
         #region Movement
         if (Input.GetMouseButtonDown(0))
         {
-            firstMousePoint = cam.ScreenToWorldPoint(Input.mousePosition);
             Time.timeScale = slowMotionScale;
 
             lr.enabled = true;
@@ -56,7 +54,7 @@ public class AnomalyOriginal : Anomaly
         if (isRecording)
         {
             lr.SetPosition(0, transform.position);
-            secondMousePoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            mousePoint = cam.ScreenToWorldPoint(Input.mousePosition);
             lr.SetPosition(1, (Vector2)transform.position + (Direction * Magnitude));
         }
 
@@ -106,7 +104,7 @@ public class AnomalyOriginal : Anomaly
         else
             LifeTime -= Time.deltaTime;
 
-        healthRenderer.transform.localScale = Vector2.one * (LifeTime / maxLifeTime);
+        healthUI.Set(LifeTime / maxLifeTime);
     }
     #endregion
 

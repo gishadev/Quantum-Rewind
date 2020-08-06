@@ -26,7 +26,10 @@ public class Portal : MonoBehaviour
         {
             // If triggered by Original.
             if (other.GetComponent<Anomaly>().anomalyType == AnomalyType.Original)
+            {
                 GameManager.Instance.Win();
+                circleCollider.enabled = false;
+            }
         }
     }
 }

@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         isPlaying = true;
         ReincarnateInNext();
         uiManager.OnStartGame();
+        uiManager.RequiredEnergyTextPosition(energyManager.NowBattery.transform.position);
     }
 
     public void Win()
@@ -64,7 +65,11 @@ public class GameManager : MonoBehaviour
         NextIteration();
         if (IsOutOfIterations())
             return;
- 
+
+        uiManager.RequiredEnergyTextPosition(energyManager.NowBattery.transform.position);
+        uiManager.SetRequiredEnergyTextValue(energyManager.EnergyPerBattery);
+        uiManager.SetRequiredEnergyTextState(true);
+
         energyManager.InitEnergy();
         spawnManager.SpawnAnomalies(true);
     }

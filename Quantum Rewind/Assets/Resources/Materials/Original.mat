@@ -40,14 +40,14 @@ Material:
     - Vector1_FFE32FF7: 1
     - _EnableExternalAlpha: 0
     - _Fade: 1
-    - _NoiseScale: 25
-    - _Outline: 0.1
+    - _NoiseScale: 35
+    - _Outline: 0.05
     - _Speed: 1
     m_Colors:
     - Color_ED9532BD: {r: 0, g: 0.9023998, b: 1, a: 1}
     - _Color: {r: 0, g: 0.9608455, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 0.6862745, g: 0, b: 0.98039216, a: 1}
-    - _OutlineColor: {r: 0.11321989, g: 0.031413607, b: 0.124999985, a: 1}
+    - _MainColor: {r: 0, g: 1, b: 0.7556627, a: 1}
+    - _OutlineColor: {r: 0.0627451, g: 0.10980392, b: 0.23921569, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
