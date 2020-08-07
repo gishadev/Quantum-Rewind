@@ -30,9 +30,15 @@ public class SpawnManager : MonoBehaviour
 
         // Spawning.
         SpawnOriginal();
+        EffectsEmitter.Emit("Small_Blue_Explosion", OriginalSpawnpoint.point.position);
+
         for (int i = 0; i < spawnpoints.Length; i++)
             if (spawnpoints[i].IsFormedPath)
+            {
                 SpawnReplicate(spawnpoints[i]);
+                EffectsEmitter.Emit("Small_Red_Explosion", spawnpoints[i].transform.position);
+            }
+
     }
 
     void SpawnOriginal()

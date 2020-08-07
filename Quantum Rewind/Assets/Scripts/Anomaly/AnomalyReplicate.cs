@@ -1,50 +1,59 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class AnomalyReplicate : Anomaly
-{
-    public float speed;
-    public Queue<Vector2> queueOfPoints = new Queue<Vector2>();
 
-    void Start()
+    public class AnomalyReplicate : Anomaly
     {
-        currentPath = spawnpoint.pathData;
-        // Setting Queue.
-        foreach (Vector2 point in currentPath.tracePoints)
-            queueOfPoints.Enqueue(point);
+        public float speed;
+        public Queue<Vector2> queueOfPoints = new Queue<Vector2>();
 
-        StartCoroutine(ReplicateMovement());
-    }
-
-    bool pathIsDone = false;
-    IEnumerator ReplicateMovement()
-    {
-        while (queueOfPoints.Count > 0)
+        void Start()
         {
-            Vector2 nextPoint = queueOfPoints.Dequeue();
+            currentPath = spawnpoint.pathData;
+            // Setting Queue.
+            foreach (Vector2 point in currentPath.tracePoints)
+                queueOfPoints.Enqueue(point);
 
-            StartCoroutine(MoveTowardsNextPoint(nextPoint));
-            yield return new WaitUntil(() => pathIsDone);
-            pathIsDone = false;
-            yield return null;
+            StartCoroutine(ReplicateMovement());
         }
-        // Destroying after passing all path.
-        Destroy(gameObject);
-    }
 
-    IEnumerator MoveTowardsNextPoint(Vector2 point)
-    {
-        while (!pathIsDone)
+        void Update()
         {
-            if (Vector2.Distance(transform.position, point) == 0f)
+            // Rotating.
+            transform.Rotate(Vector3.back, Time.deltaTime * 150f);
+        }
+
+        bool pathIsDone = false;
+        IEnumerator ReplicateMovement()
+        {
+            while (queueOfPoints.Count > 0)
             {
-                pathIsDone = true;
-                break;
-            }
+                Vector2 nextPoint = queueOfPoints.Dequeue();
 
-            float step = Time.deltaTime * speed;
-            transform.position = Vector2.MoveTowards((Vector2)transform.position, point, step);
-            yield return null;
+                StartCoroutine(MoveTowardsNextPoint(nextPoint));
+                yield return new WaitUntil(() => pathIsDone);
+                pathIsDone = false;
+                yield return null;
+            }
+            // Destroying after passing all path.
+            Destroy(gameObject);
+        }
+
+        IEnumerator MoveTowardsNextPoint(Vector2 point)
+        {
+            while (!pathIsDone)
+            {
+                if (Vector2.Distance(transform.position, point) == 0f)
+                {
+                    pathIsDone = true;
+                    break;
+                }
+
+                float step = Time.deltaTime * speed;
+                transform.position = Vector2.MoveTowards((Vector2)transform.position, point, step);
+                yield return null;
+            }
         }
     }
-}
+
+

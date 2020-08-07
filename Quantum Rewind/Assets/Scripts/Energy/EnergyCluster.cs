@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-
 public class EnergyCluster : MonoBehaviour
 {
     public int energyValue;
@@ -16,13 +15,19 @@ public class EnergyCluster : MonoBehaviour
                 // If triggered by Replicate.
                 case AnomalyType.Replicate:
                     DestroyCluster();
+
+                    AudioManager.Instance.PlaySFX("Energy_Destroy");
                     break;
                 // If triggered by Original.
                 case AnomalyType.Original:
                     other.GetComponent<AnomalyOriginal>().ResetLifeTime();
                     SendCluster(EnergyManager.Instance.NowBattery);
+
+                    PostProcessingController.Instance.TriggerChromaticAberration(0.65f, 7f, true);
+                    AudioManager.Instance.PlaySFX("Energy_Collect");
                     break;
             }
+            EffectsEmitter.Emit("Small_Green_Explosion", transform.position);
         }
     }
 

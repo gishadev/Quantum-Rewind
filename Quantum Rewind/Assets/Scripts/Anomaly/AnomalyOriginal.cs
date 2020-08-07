@@ -32,20 +32,21 @@ public class AnomalyOriginal : Anomaly
 
     void Start()
     {
+        mousePoint = transform.position;
         ResetLifeTime();
         StartCoroutine(AnomalyDataWriter.DataWriting(this));
     }
 
     void Update()
     {
-        //// Movement.
-        //Vector2 movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        //transform.Translate(movementInput * speed * Time.deltaTime);
-
         #region Movement
         if (Input.GetMouseButtonDown(0))
         {
             Time.timeScale = slowMotionScale;
+
+            PostProcessingController.Instance.TriggerLensDistortion(0.25f, 5f, false);
+
+            AudioManager.Instance.PlaySFX("Time_Change");
 
             lr.enabled = true;
             isRecording = true;
@@ -62,9 +63,11 @@ public class AnomalyOriginal : Anomaly
         {
             if (Magnitude > rb.velocity.magnitude / 2f)
                 rb.velocity = Vector2.zero;
-            rb.AddForce(Direction * Magnitude * forceMultiplier, ForceMode2D.Impulse);
+            Dash();
 
             Time.timeScale = 1;
+
+            PostProcessingController.Instance.TriggerLensDistortion(0f, 10f, false);
 
             lr.enabled = false;
             isRecording = false;
@@ -76,9 +79,17 @@ public class AnomalyOriginal : Anomaly
         CalculateLifeTime();
     }
 
+    void Dash()
+    {
+        rb.AddForce(Direction * Magnitude * forceMultiplier, ForceMode2D.Impulse);
+        EffectsEmitter.Emit("Small_Blue_Explosion", transform.position);
+        AudioManager.Instance.PlaySFX("Dash");
+    }
+
     public override void Die()
     {
         base.Die();
+        AudioManager.Instance.PlaySFX("Anomaly_Destroy");
         GameManager.Instance.Lose();
     }
 
@@ -127,3 +138,5 @@ public static class AnomalyDataWriter
         }
     }
 }
+
+

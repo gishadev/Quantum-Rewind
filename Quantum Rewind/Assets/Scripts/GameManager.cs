@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -27,6 +26,8 @@ public class GameManager : MonoBehaviour
         uiManager = UIManager.Instance;
         spawnManager = SpawnManager.Instance;
         energyManager = EnergyManager.Instance;
+
+        PostProcessingController.Instance.TriggerDepthOfField(true);
     }
 
     void Update()
@@ -42,7 +43,13 @@ public class GameManager : MonoBehaviour
     void StartGame()
     {
         isPlaying = true;
+
+        PostProcessingController.Instance.TriggerDepthOfField(false);
+
+        AudioManager.Instance.PlaySFX("Start");
+
         ReincarnateInNext();
+
         uiManager.OnStartGame();
         uiManager.RequiredEnergyTextPosition(energyManager.NowBattery.transform.position);
     }

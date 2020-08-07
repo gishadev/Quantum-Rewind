@@ -17,7 +17,12 @@ public class Portal : MonoBehaviour
     public void Open()
     {
         animator.SetTrigger("Open");
+        
         circleCollider.enabled = true;
+
+        EffectsEmitter.Emit("Big_Purple_Explosion", transform.position);
+
+        AudioManager.Instance.PlaySFX("Portal_Open");
     }
 
     private void OnTriggerEnter2D(Collider2D other)

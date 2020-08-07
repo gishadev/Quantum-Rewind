@@ -51,7 +51,15 @@ public class Battery : MonoBehaviour
         UIManager.Instance.SetRequiredEnergyTextValue(EnergyRequired);
 
         if (EnergyRequired == 0)
+        {
             OnFullCharge();
+            EffectsEmitter.Emit("Small_Yellow_Explosion", transform.position);
+        }
+            
+        else
+            EffectsEmitter.Emit("Small_Green_Explosion", transform.position);
+
+        AudioManager.Instance.PlaySFX("Battery_PowerUp");
     }
 
     void OnFullCharge()
@@ -68,6 +76,8 @@ public class Battery : MonoBehaviour
         }
         else
             SetColor(gateColor);
+
+        AudioManager.Instance.PlaySFX("Battery_PowerUp_Full");
     }
 
     void SetVisualEnergyValue(float value)

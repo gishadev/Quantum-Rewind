@@ -440,7 +440,7 @@ ParticleSystem:
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
+  useRigidbodyForVelocity: 0
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -989,7 +989,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 100
+    maxNumParticles: 600
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -1254,7 +1254,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 25
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4010,8 +4010,8 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 3
-    type: 0
-    collisionMode: 0
+    type: 1
+    collisionMode: 1
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
@@ -4078,7 +4078,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5188,6 +5188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 226843741}
   - component: {fileID: 226843740}
+  - component: {fileID: 226843742}
   m_Layer: 0
   m_Name: Global Volume
   m_TagString: Untagged
@@ -5226,6 +5227,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &226843742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226843739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6275db50216a045b4193fb01b3a221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &233975230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5283,6 +5296,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97d4bab068546d644af4ceeb15c1456b, type: 3}
+--- !u!1 &238306033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 238306034}
+  - component: {fileID: 238306035}
+  m_Layer: 0
+  m_Name: Effects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &238306034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238306033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 657062533}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &238306035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238306033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef83d71c1068f249a9df040701bd8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effects:
+  - name: Small_Green_Explosion
+    prefab: {fileID: 1171305813390391877, guid: df14aab4b70362840a2e4d25a7fa948b, type: 3}
+  - name: Small_Yellow_Explosion
+    prefab: {fileID: 1171305813390391877, guid: add583e06b9fdb0428653212a9e564aa, type: 3}
+  - name: Small_Red_Explosion
+    prefab: {fileID: 1171305813390391877, guid: f334174a003ebfb48b72224e9f0e3abe, type: 3}
+  - name: Small_Blue_Explosion
+    prefab: {fileID: 1171305813390391877, guid: b0dca2a57fca82943ad11cb0dc293f88, type: 3}
+  - name: Big_Purple_Explosion
+    prefab: {fileID: 6936970170008443000, guid: 8c999336a0ae04e4eb11d41695b20fea, type: 3}
 --- !u!1001 &252746757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6180,7 +6247,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 238306034}
+  - {fileID: 1791290854}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6507,7 +6576,7 @@ ParticleSystem:
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
+  useRigidbodyForVelocity: 0
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -7056,7 +7125,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 100
+    maxNumParticles: 600
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -7321,7 +7390,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 25
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -10077,8 +10146,8 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 3
-    type: 0
-    collisionMode: 0
+    type: 1
+    collisionMode: 1
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
@@ -10145,7 +10214,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -11328,7 +11397,7 @@ ParticleSystem:
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
+  useRigidbodyForVelocity: 0
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -11877,7 +11946,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 100
+    maxNumParticles: 600
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -12142,7 +12211,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 25
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -14898,8 +14967,8 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 3
-    type: 0
-    collisionMode: 0
+    type: 1
+    collisionMode: 1
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
@@ -14966,7 +15035,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -21856,6 +21925,183 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1791290853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1791290854}
+  - component: {fileID: 1791290855}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1791290854
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791290853}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 657062533}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1791290855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791290853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5942539db6782314682860a748f9a556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundMusicList: []
+  sfxList:
+  - Name: Click_01
+    audioClip: {fileID: 8300000, guid: 68647663b7e81ea449d2fbf721244361, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  - Name: Click_02
+    audioClip: {fileID: 8300000, guid: d798e45646f703a4ab989cbc74d05141, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  - Name: Anomaly_Destroy
+    audioClip: {fileID: 8300000, guid: c085f977e05876a4699c854a3e352a5d, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  - Name: Battery_PowerUp
+    audioClip: {fileID: 8300000, guid: 96d0fd24f3ba44649b62798d1c9c827a, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  - Name: Battery_PowerUp_Full
+    audioClip: {fileID: 8300000, guid: b2f2141255884b8498b2e18b9db2ddde, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  - Name: Dash
+    audioClip: {fileID: 8300000, guid: 679308024875a844a9639a73f79b1fe2, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  - Name: Energy_Collect
+    audioClip: {fileID: 8300000, guid: 1f7a4b062e4c0154aa2535659c24dc6b, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  - Name: Energy_Destroy
+    audioClip: {fileID: 8300000, guid: fa66d38a9679d76469f317197bc2d0c6, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  - Name: Portal_Open
+    audioClip: {fileID: 8300000, guid: 2b7f364ba37d4a6428c965e01e1e9fd4, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  - Name: Start
+    audioClip: {fileID: 8300000, guid: 014f6db28167be441a9ea9b26ac45892, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  - Name: Time_Change
+    audioClip: {fileID: 8300000, guid: 5786353660bdb134b8297328ea2071bd, type: 3}
+    isLooping: 0
+    volume: 1
+    pitch: 1
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  currentMusic:
+    Name: 
+    audioClip: {fileID: 0}
+    isLooping: 0
+    volume: 0
+    pitch: 0
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
+  prevMusic:
+    Name: 
+    audioClip: {fileID: 0}
+    isLooping: 0
+    volume: 0
+    pitch: 0
+    fadeInSpeed: 0
+    fadeOutSpeed: 0
+    fade: 0
+    go: {fileID: 0}
+    audioSource: {fileID: 0}
 --- !u!4 &1829307341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8348428828517677445, guid: 97d4bab068546d644af4ceeb15c1456b, type: 3}
