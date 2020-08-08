@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -6
+  m_SortingOrder: -5
   m_Sprite: {fileID: 21300000, guid: c21049e714165954e8b6c01c8401726a, type: 3}
   m_Color: {r: 0.10588236, g: 0.9960785, b: 0.41176474, a: 1}
   m_FlipX: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7603979332492058399}
   - component: {fileID: 1820988363677163048}
   m_Layer: 0
-  m_Name: Unready Core Sprite  (1)
+  m_Name: Unready Core Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 6236781778624676802}
   - component: {fileID: 6236781778624676800}
   m_Layer: 0
-  m_Name: Spawnpoint 1
+  m_Name: Spawnpoint
   m_TagString: Spawnpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

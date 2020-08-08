@@ -366,4 +366,4 @@ MonoBehaviour:
   maxMagnitude: 15
   forceMultiplier: 1.2
   slowMotionScale: 0.55
-  maxLifeTime: 3
+  maxLifeTime: 3.5

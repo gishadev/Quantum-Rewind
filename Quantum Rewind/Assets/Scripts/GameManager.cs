@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
             SceneManager.LoadScene(0);
 
         if (!isPlaying)
@@ -46,8 +49,6 @@ public class GameManager : MonoBehaviour
 
         PostProcessingController.Instance.TriggerDepthOfField(false);
 
-        AudioManager.Instance.PlaySFX("Start");
-
         ReincarnateInNext();
 
         uiManager.OnStartGame();
@@ -57,13 +58,20 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         Debug.Log("Win!");
-        SceneManager.LoadScene(0);
+
+        int nextScene;
+        if (SceneManager.GetActiveScene().buildIndex + 1 < SceneManager.sceneCountInBuildSettings)
+            nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+        else
+            nextScene = 1;
+
+        SceneManager.LoadScene(nextScene);
     }
 
     public void Lose()
     {
         Debug.Log("Lose!");
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     #region Reincarnations
@@ -76,6 +84,8 @@ public class GameManager : MonoBehaviour
         uiManager.RequiredEnergyTextPosition(energyManager.NowBattery.transform.position);
         uiManager.SetRequiredEnergyTextValue(energyManager.EnergyPerBattery);
         uiManager.SetRequiredEnergyTextState(true);
+
+        AudioManager.Instance.PlaySFX("Start");
 
         energyManager.InitEnergy();
         spawnManager.SpawnAnomalies(true);
